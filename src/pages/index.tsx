@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './index.less';
 
-console.log('123123');
-
 export default () => {
   return (
     <div>
