@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-wrap-multilines */
 import { Link } from 'umi';
 import { Result, Button } from 'antd';
 import React from 'react';
