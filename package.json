@@ -24,6 +24,7 @@
     ]
   },
   "dependencies": {
+    "@ant-design/icons": "^4.0.6",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.1.1",
     "antd": "^4.1.4",
@@ -46,6 +47,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",

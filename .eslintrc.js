@@ -1,11 +1,12 @@
 module.exports = {
-  env: { browser: true, es6: true },
+  env: { browser: true, es6: true, node: true },
   extends: [
     'airbnb',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'prettier/react',
   ],
+
   globals: { Atomics: 'readonly', SharedArrayBuffer: 'readonly' },
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -15,7 +16,13 @@ module.exports = {
     project: './tsconfig.json',
   },
   settings: {
-    'import/resolver': { node: { extensions: ['.js', '.jsx', '.ts', '.tsx'] } },
+    'import/resolver': {
+      node: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+      alias: {
+        map: [['@', './src/']],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+      },
+    },
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
@@ -28,5 +35,6 @@ module.exports = {
       2,
       { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' },
     ],
+    'react/prop-types': 0,
   },
 };
