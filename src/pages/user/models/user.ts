@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { Effect, ImmerReducer, Subscription } from 'umi';
+import { Effect, ImmerReducer, Subscription, history } from 'umi';
 import { UserAPI } from '@/api';
+import { CONSTANTS } from '@/utils';
 
 export interface UserModelState {
   name: string;
@@ -22,13 +23,16 @@ const UserModel: UserModelType = {
     name: '',
   },
   effects: {
-    *login({ payload }, { call, put }) {
-      console.log(payload);
+    *login({ payload }, { call, _put }) {
       try {
-        const res = yield call(UserAPI.login, payload);
-        console.log('res', res);
+        const { loginForm, refreshInitState } = payload;
+        const { token } = yield call(UserAPI.login, loginForm);
+        // eslint-disable-next-line no-unused-expressions
+        globalThis?.localStorage.setItem(CONSTANTS.STORAGE_KEY.TOKEN, token);
+        yield call(refreshInitState);
+        history.push('/');
       } catch (error) {
-        console.log(error);
+        console.log('error', error);
       }
     },
   },

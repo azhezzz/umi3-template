@@ -1,11 +1,17 @@
 // @ts-nocheck
-import { RequestConfig, request as umiRequest } from 'umi';
+import { RequestConfig } from 'umi';
 import { ResponseError } from 'umi-request';
-
+import { UserAPI } from '@/api';
+import { CONSTANTS } from '@/utils';
 /*  初始化状态  */
 export async function getInitialState() {
-  const data = await umiRequest('http://localhost:4000/top/mv?limit=10');
-  return data;
+  try {
+    const token = globalThis?.localStorage.getItem(CONSTANTS.STORAGE_KEY.TOKEN);
+    if (!token) return null;
+    return await UserAPI.verify(token);
+  } catch (error) {
+    return null;
+  }
 }
 
 /*  请求  */
@@ -24,12 +30,13 @@ interface RequestError extends Error {
 }
 
 export const request: RequestConfig = {
-  timeout: 10 * 1000,
+  timeout: 1000,
   errorConfig: {
-    adaptor: resData => ({
+    adaptor: (resData = {}) => ({
       ...resData,
-      success: resData.status === 0 || resData.code === 200,
+      success: !resData.isFail,
       errorMessage: resData.message,
+      data: resData.data,
     }),
   },
   middlewares: [],
@@ -37,13 +44,23 @@ export const request: RequestConfig = {
   responseInterceptors: [
     async response => {
       const data = await response.json();
-      console.log(data);
-      return data;
+      //  成功
+      if (data.status === 0 || data.code === 200) {
+        console.log(
+          '%c SUCCESS ',
+          'color: white; background-color: #34ad60',
+          data?.data,
+        );
+        return data?.data;
+      }
+      // 失败
+      return { isFail: true, message: data?.message, data };
     },
   ],
   // errorHandler,
 };
 // 自定义错误处理。如果使用的话，不会走默认处理
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler = (error: RequestError | ResponseError) => {
   // 是否是因为 success 为 false 抛出的错误
   if (error.name === 'BizError') {

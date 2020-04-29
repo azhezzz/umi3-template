@@ -24,6 +24,7 @@ module.exports = {
       },
     },
   },
+  globals: { globalThis: 'readonly' },
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/jsx-filename-extension': [
@@ -36,5 +37,15 @@ module.exports = {
       { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' },
     ],
     'react/prop-types': 0,
+    '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/no-unused-vars': [2, { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-explicit-any': 0,
+    'no-console': 0,
+    'no-unused-expressions': [
+      2,
+      { allowShortCircuit: true, allowTernary: true },
+    ],
+    'no-empty': [2, { allowEmptyCatch: true }],
+    '@typescript-eslint/ban-ts-ignore': 0,
   },
 };

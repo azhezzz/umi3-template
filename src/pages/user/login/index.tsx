@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { UserModelState, ConnectRC, Loading, connect } from 'umi';
+import { UserModelState, ConnectRC, Loading, connect, useModel } from 'umi';
 
 import styles from './styles.less';
 
@@ -11,9 +11,13 @@ interface PageProps {
 }
 
 const LoginPage: ConnectRC<PageProps> = ({ dispatch }) => {
-  const onFinish: (value: any) => void = values => {
+  const { refresh } = useModel('@@initialState');
+  const onFinish = (values: any): void => {
     if (dispatch) {
-      dispatch({ type: 'user/login', payload: values });
+      dispatch({
+        type: 'user/login',
+        payload: { loginForm: values, refreshInitState: refresh },
+      });
     }
   };
   return (
@@ -21,7 +25,7 @@ const LoginPage: ConnectRC<PageProps> = ({ dispatch }) => {
       <Form
         name="normal_login"
         className={styles.loginForm}
-        initialValues={{ remember: true }}
+        initialValues={{ username: 'cwz', password: 'cwz123456' }}
         onFinish={onFinish}
       >
         <Form.Item
