@@ -1,3 +1,42 @@
+@import '~@/theme.less';
+
 .layout {
-  height: 100%;
+  min-height: 100%;
+}
+
+.content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.headerBar {
+  height: 46px;
+  background-color: @yellow;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .headerMain {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 1200px;
+  }
+  .headerSub {
+    display: flex;
+    align-items: center;
+  }
+  .headerEmptySub,
+  .headerSub {
+    width: 150px;
+    flex: 1;
+  }
+  .exitButton {
+    border-color: #4a4a4a;
+    color: #4a4a4a;
+    width: 76px;
+    height: 26px;
+  }
 }

@@ -1,26 +1,16 @@
 import React, { FC } from 'react';
-import { history, useModel } from 'umi';
-import { Layout, Button } from 'antd';
-import styels from './styles.less';
+import { Layout } from 'antd';
 
-const { Header, Content } = Layout;
+import Header from './header';
+import styles from './styles.less';
+
+const { Content } = Layout;
 
 const MainLayout: FC = ({ children }) => {
-  const { refresh } = useModel('@@initialState');
-  const exit = async () => {
-    // eslint-disable-next-line no-unused-expressions
-    globalThis?.localStorage.clear();
-    await refresh();
-    history.push('/');
-  };
   return (
-    <Layout className={styels.layout}>
-      <Header>
-        <Button type="primary" onClick={exit}>
-          退出
-        </Button>
-      </Header>
-      <Content>{children}</Content>
+    <Layout className={styles.layout}>
+      <Header />
+      <Content className={styles.content}>{children}</Content>
     </Layout>
   );
 };
