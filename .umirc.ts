@@ -41,7 +41,7 @@ export default defineConfig({
   ],
   request: { dataField: 'data' },
   chainWebpack(config, { _webpack }) {
-    process.env.CUSTOM_ESLINT === 'true' &&
+    process.env.ESLINT_CHECK === 'true' &&
       config.module
         .rule('lint')
         .test(/.(js|jsx|ts|tsx)$/)
