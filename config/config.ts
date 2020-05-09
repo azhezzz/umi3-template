@@ -1,6 +1,10 @@
+/* eslint-disable */
 import { defineConfig } from 'umi';
+import routes from './routes';
+
 const path = require('path');
 const fs = require('fs');
+
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = (relativePath: any) =>
   path.resolve(appDirectory, relativePath);
@@ -8,27 +12,16 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 
 const appInfo = JSON.parse(fs.readFileSync(resolveApp('package.json')));
 
-const routes = [
-  { path: '/user/login', component: '@/pages/user/login' },
-  { name: '404', path: '/NotFound', component: '@/pages/exception/404' },
-  {
-    path: '/',
-    component: '@/layouts',
-    wrappers: ['@/wrappers/auth'],
-    routes: [
-      { path: '/', component: '@/pages/home', exact: true },
-      { path: '/live', component: '@/pages/live' },
-      { path: '*', redirect: '/NotFound' },
-    ],
-  },
-];
-
 export default defineConfig({
   nodeModulesTransform: { type: 'none' },
   dva: { immer: true, hmr: true },
   antd: { dark: true, compact: true },
+  theme: {
+    'primary-color': '#fec400', // 全局主色
+  },
   routes,
   metas: [
+    //@ts-ignore
     { name: 'version', value: appInfo.version },
     { name: 'build_time', value: new Date() },
   ],
@@ -40,7 +33,7 @@ export default defineConfig({
     },
   ],
   request: { dataField: 'data' },
-  chainWebpack(config, { _webpack }) {
+  chainWebpack(config, { webpack }) {
     process.env.ESLINT_CHECK === 'true' &&
       config.module
         .rule('lint')

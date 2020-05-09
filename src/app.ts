@@ -45,7 +45,7 @@ export const request: RequestConfig = {
     async response => {
       const data = await response.json();
       //  成功
-      if (data.status === 0 || data.code === 200) {
+      if (data.status === 0) {
         console.log(
           '%c SUCCESS ',
           'color: white; background-color: #34ad60',

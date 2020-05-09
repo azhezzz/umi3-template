@@ -1,11 +1,53 @@
+@import '~@/theme.less';
+
 .loginContainer {
   height: 100vh;
-  background: url('~@/assets/testtt.png') no-repeat center;
+  background: url('~@/assets/loginBackground.png') no-repeat center;
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 .loginForm {
-  width: 300px;
+  box-sizing: content-box;
+  width: 320px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 31px 21px 21px 21px;
+  border-radius: 8px;
+  margin-top: 15px;
+  margin-bottom: 150px;
+  :global {
+    .ant-input-prefix {
+      display: inline-flex;
+      align-items: center;
+    }
+    .ant-form-item-explain {
+      margin-top: 0;
+    }
+  }
+}
+
+.submitButton {
+  margin-top: 15px;
+  color: @black !important;
+}
+
+.icon {
+  font-size: 30px;
+  border-right: 1px solid @black;
+  padding-right: 5px;
+}
+
+.input,
+.submitButton {
+  height: 44px;
+  border-radius: 4px;
+}
+
+h1.title,
+.subTitle {
+  color: white;
+  font-weight: normal;
+  margin-bottom: 0;
 }

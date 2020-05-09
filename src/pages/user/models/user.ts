@@ -32,7 +32,7 @@ const UserModel: UserModelType = {
         yield call(refreshInitState);
         history.push('/');
       } catch (error) {
-        console.log('error', error);
+        // console.log('error', error);
       }
     },
   },
