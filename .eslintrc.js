@@ -31,21 +31,22 @@ module.exports = {
       1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
-    'no-unused-vars': 0,
     'import/extensions': [
       2,
       { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' },
     ],
     'react/prop-types': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
+    'no-unused-vars': 0,
     '@typescript-eslint/no-unused-vars': [2, { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 0,
     'no-console': 0,
-    'no-unused-expressions': [
+    'no-empty': [2, { allowEmptyCatch: true }],
+    '@typescript-eslint/ban-ts-ignore': 0,
+    'no-unused-expressions': 0,
+    '@typescript-eslint/no-unused-expressions': [
       2,
       { allowShortCircuit: true, allowTernary: true },
     ],
-    'no-empty': [2, { allowEmptyCatch: true }],
-    '@typescript-eslint/ban-ts-ignore': 0,
   },
 };

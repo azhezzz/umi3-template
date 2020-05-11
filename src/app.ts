@@ -1,8 +1,11 @@
 // @ts-nocheck
 import { RequestConfig } from 'umi';
 import { ResponseError } from 'umi-request';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { createLogger } from 'redux-logger';
 import { UserAPI } from '@/api';
 import { CONSTANTS } from '@/utils';
+
 /*  初始化状态  */
 export async function getInitialState() {
   try {
@@ -59,7 +62,7 @@ export const request: RequestConfig = {
   ],
   // errorHandler,
 };
-// 自定义错误处理。如果使用的话，不会走默认处理
+// 自定义请求错误处理。如果使用的话，不会走默认处理
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler = (error: RequestError | ResponseError) => {
   // 是否是因为 success 为 false 抛出的错误
@@ -83,4 +86,24 @@ const errorHandler = (error: RequestError | ResponseError) => {
   throw error; // 如果throw. 错误将继续抛出.
   // 如果return, 则将值作为返回. 'return;' 相当于return undefined, 在处理结果时判断response是否有值即可.
   // return { some: 'data' };
+};
+
+const logger = createLogger({
+  // 折叠
+  collapsed: true,
+  // 过滤
+  predicate: (preState: any, { type }: { type: string }) => {
+    return !new RegExp('.*@@.*').test(type);
+  },
+});
+/*  dva  */
+export const dva = {
+  config: {
+    onError(e) {
+      e.preventDefault();
+      console.error('dva捕获到');
+      console.error(e.message);
+    },
+    onAction: [logger],
+  },
 };

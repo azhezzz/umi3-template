@@ -8,8 +8,7 @@ import styles from './styles.less';
 const Header: FC = () => {
   const { refresh } = useModel('@@initialState');
   const exit = async () => {
-    // eslint-disable-next-line no-unused-expressions
-    globalThis?.localStorage.clear();
+    globalThis?.localStorage?.clear();
     await refresh();
     history.push('/login');
   };

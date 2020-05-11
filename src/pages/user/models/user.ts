@@ -27,8 +27,7 @@ const UserModel: UserModelType = {
       try {
         const { loginForm, refreshInitState } = payload;
         const { token } = yield call(UserAPI.login, loginForm);
-        // eslint-disable-next-line no-unused-expressions
-        globalThis?.localStorage.setItem(CONSTANTS.STORAGE_KEY.TOKEN, token);
+        globalThis?.localStorage?.setItem(CONSTANTS.STORAGE_KEY.TOKEN, token);
         yield call(refreshInitState);
         history.push('/');
       } catch (error) {
